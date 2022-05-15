@@ -19,7 +19,7 @@ var (
 )
 
 func main() {
-	u := url.URL{Scheme: "ws", Host: *addr, Path: *path, RawQuery: fmt.Sprintf("token=%s", *token)}
+	u := url.URL{Scheme: "wss", Host: *addr, Path: *path, RawQuery: fmt.Sprintf("token=%s", *token)}
 	conn, _, err := dialer.Dial(u.String(), nil)
 	if err != nil {
 		log.Panic(err)
@@ -32,8 +32,8 @@ func main() {
 			return
 		}
 		if gjson.GetBytes(message, "code").Int() == 0 {
-			fmt.Println(gjson.GetBytes(message, "channel")) //Inplay
-			fmt.Println(gjson.GetBytes(message, "typs"))    //Event|List|Detail
+			fmt.Println(gjson.GetBytes(message, "channel")) //inplay
+			fmt.Println(gjson.GetBytes(message, "typs"))    //event|list|detail|live_animation|media
 			fmt.Println(gjson.GetBytes(message, "data"))    //map
 		}
 	}
